@@ -1,0 +1,96 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="my-5">
+      <div class="row">
+        <div class="col-md-12 d-flex align-items-center justify-content-center">
+          <i class="fas fa-user-circle fa-3x"></i>
+        </div>
+        <div class="col-md-12 text-center">
+          <label for="" class="d-block">Sigit Suryono</label>
+          <small for="" class="d-block small">Akun Demo</small>
+        </div>
+      </div>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">
+        <mat-icon>dashboard</mat-icon>&nbsp;&nbsp;
+        Dashboard
+      </a>
+      <a mat-list-item href="#">
+        <mat-icon>watch_later</mat-icon>&nbsp;&nbsp;
+        Cek Jadwal
+      </a>
+      <div id="table--accordion">
+        <div class="accordion-item bg-transparent border-0">
+          <div class="" data-bs-toggle="collapse" data-bs-target="#table--accordion-collapse"
+            aria-controls="table--accordion-collapse">
+            <a mat-list-item class="d-flex justify-content-between align-items-center w-100" aria-expanded="true"
+              href="javascript:void(0)" style="font-size: 1.2em;">
+              <mat-icon>table_chart</mat-icon>&nbsp;&nbsp;
+              Tabel
+              <mat-icon>
+                arrow_right
+              </mat-icon>
+            </a>
+          </div>
+          <div id="table--accordion-collapse" class="accordion-collapse collapse" aria-labelledby="headingOne"
+            data-bs-parent="#table--accordion">
+            <div>
+              <a mat-list-item href="javascript:void(0)" routerLink="input-kas-admin" aria-expanded="false">
+                &nbsp;&nbsp;<mat-icon>bar_chart</mat-icon>&nbsp;&nbsp;
+                <span class="">Tabel Kehadiran </span>
+              </a>
+              <a mat-list-item href="javascript:void(0)" routerLink="input-kas-admin" aria-expanded="false">
+                &nbsp;&nbsp;<mat-icon>checklist</mat-icon>&nbsp;&nbsp;
+                <span class="hide-menu">Tabel Kegiatan </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="presensi--accordion">
+        <div class="accordion-item bg-transparent border-0">
+          <div class="" data-bs-toggle="collapse" data-bs-target="#presensi--accordion-collaps"
+            aria-controls="collapseOne">
+            <a mat-list-item href="javascript:void(0)">
+              <mat-icon>check_box</mat-icon>&nbsp;&nbsp;
+              Presensi
+              <mat-icon>
+                arrow_right
+              </mat-icon>
+            </a>
+          </div>
+          <div id="presensi--accordion-collaps" class="accordion-collapse collapse" aria-labelledby="headingOne"
+            data-bs-parent="#presensi--accordion">
+            <div>
+              <a mat-list-item href="javascript:void(0)" routerLink="input-kas-admin" aria-expanded="false">
+                &nbsp;&nbsp;<mat-icon>warning</mat-icon>&nbsp;&nbsp;
+                <span class="">Absen </span>
+              </a>
+              <a mat-list-item href="javascript:void(0)" routerLink="input-kas-admin" aria-expanded="false">
+                &nbsp;&nbsp;<mat-icon>draw</mat-icon>&nbsp;&nbsp;
+                <span class="hide-menu">Kegiatan </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a mat-list-item href="#">
+        <mat-icon>people_alt</mat-icon>&nbsp;&nbsp;
+        Profil
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Aplikasi Presensi Maluku</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
