@@ -13,7 +13,8 @@
       </div>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">
+      <a mat-list-item href="javascript:void(0)" routerLink="dashboard"
+        (click)="changeTitle('Dashboard', drawer); ">
         <mat-icon>dashboard</mat-icon>&nbsp;&nbsp;
         Dashboard
       </a>
@@ -64,11 +65,13 @@
           <div id="presensi--accordion-collaps" class="accordion-collapse collapse" aria-labelledby="headingOne"
             data-bs-parent="#presensi--accordion">
             <div>
-              <a mat-list-item href="javascript:void(0)" routerLink="presensi" aria-expanded="false">
+              <a mat-list-item href="javascript:void(0)" (click)="changeTitle('Presensi', drawer);"
+                routerLink="presensi" aria-expanded="false">
                 &nbsp;&nbsp;<mat-icon>warning</mat-icon>&nbsp;&nbsp;
                 <span class="">Presensi </span>
               </a>
-              <a mat-list-item href="javascript:void(0)" routerLink="input-kas-admin" aria-expanded="false">
+              <a mat-list-item href="javascript:void(0)" (click)="changeTitle('Kegiatan', drawer);"
+                routerLink="input-kas-admin" aria-expanded="false">
                 &nbsp;&nbsp;<mat-icon>draw</mat-icon>&nbsp;&nbsp;
                 <span class="hide-menu">Kegiatan </span>
               </a>
@@ -77,7 +80,7 @@
         </div>
       </div>
 
-      <a mat-list-item routerLink="profile">
+      <a mat-list-item routerLink="profile" (click)="changeTitle('Profil', drawer);">
         <mat-icon>people_alt</mat-icon>&nbsp;&nbsp;
         Profil
       </a>
@@ -85,11 +88,10 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Aplikasi Presensi Maluku</span>
+      <span>{{title}}</span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

@@ -26,6 +26,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProfileComponent } from './profile/profile.component';
 import { PresensiComponent } from './presensi/presensi.component';
 import { WebcamModule } from 'ngx-webcam';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,12 +54,15 @@ import { WebcamModule } from 'ngx-webcam';
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
+    MatCheckboxModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

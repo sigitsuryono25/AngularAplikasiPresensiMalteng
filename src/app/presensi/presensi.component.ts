@@ -15,9 +15,8 @@ export class PresensiComponent implements OnInit {
   allowCameraSwitch = true;
   multipleWebcamAvailable = false;
   deviceId: String = "";
-  videoOptions: MediaTrackConstraints = {
-
-  };
+  videoOptions: MediaTrackConstraints = {};
+  isWFH = false;
   errors: WebcamInitError[] = [];
   webcamImage: any;
   private trigger: Subject<void> = new Subject<void>();

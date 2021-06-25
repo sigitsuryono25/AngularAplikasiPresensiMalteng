@@ -1,7 +1,9 @@
 <div class="container p-4">
-  <div class="alert alert-danger text-center">
-    <span class="text-danger h6">
-      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+  <div [ngClass]="{'alert alert-danger text-center': jarak > 20}"
+    [ngClass]="{'alert alert-success text-center': jarak < 20}">
+    <span [ngClass]="{'text-success h6': jarak < 20}" [ngClass]="{'text-danger h6': jarak > 20}">
+      <i *ngIf="jarak < 20" class="fa fa-check" aria-hidden="true"></i>
+      <i *ngIf="jarak >  20" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
       Jarak Lokasi anda ke kantor {{jarak | number: "1.0-2"}} meter</span>
   </div>
   <div class="row">
@@ -12,8 +14,12 @@
           [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" [imageQuality]="1"
           (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>
         <div class="d-block text-center">
-          <button [disabled]="jarak > 20" mat-raised-button color="warn" (click)="triggerSnapshot();"
-            class="border-0 rounded-0">
+          <div class="m-3">
+            <mat-checkbox class="example-margin" [(ngModel)]="isWFH">Anda WFH?</mat-checkbox>
+          </div>
+
+          <button [disabled]="jarak > 20 && !isWFH" [class.bg-success]="jarak < 20 || isWFH" mat-raised-button
+            (click)="triggerSnapshot();" class="border-0 rounded-0  text-white">
             <mat-icon>photo_camera</mat-icon>&nbsp;
             Presensi
           </button>&nbsp;&nbsp;&nbsp;
