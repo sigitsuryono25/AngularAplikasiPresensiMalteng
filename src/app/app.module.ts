@@ -21,14 +21,19 @@ import { KehadiranComponent } from './kehadiran/kehadiran.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ProfileComponent } from './profile/profile.component';
+import { PresensiComponent } from './presensi/presensi.component';
+import { WebcamModule } from 'ngx-webcam';
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     DashboardComponent,
-    KehadiranComponent
+    KehadiranComponent,
+    ProfileComponent,
+    PresensiComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +41,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatSliderModule,
     MatExpansionModule,
     MatFormFieldModule,
+    WebcamModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
@@ -54,7 +60,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    // NgxFaceApiJsModule.forRoot({
+    //   modelsUrl: 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights',
+    // })
   ],
   providers: [],
   bootstrap: [AppComponent]
