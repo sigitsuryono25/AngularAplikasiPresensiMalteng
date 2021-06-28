@@ -28,6 +28,11 @@ import { PresensiComponent } from './presensi/presensi.component';
 import { WebcamModule } from 'ngx-webcam';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
+import { MatRadioModule } from '@angular/material/radio';
+import { LoginComponent } from './login/login.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,13 +40,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DashboardComponent,
     KehadiranComponent,
     ProfileComponent,
-    PresensiComponent
+    PresensiComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatSliderModule,
     MatExpansionModule,
+    HttpClientModule,
     MatFormFieldModule,
     WebcamModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -57,6 +64,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     FormsModule,
     ReactiveFormsModule,
     MatSidenavModule,
+    MatRadioModule,
     MatIconModule,
     MatListModule,
     MatGridListModule,
@@ -66,6 +74,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatInputModule,
+    MatSelectModule,
     // NgxFaceApiJsModule.forRoot({
     //   modelsUrl: 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights',
     // })
