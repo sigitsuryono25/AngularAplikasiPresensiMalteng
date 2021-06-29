@@ -14,21 +14,26 @@
               <i class="fas fa-clock "></i>&nbsp; Waktu Sekarang<br>
               <span class="h5">{{serverTime}}</span>
             </li>
-            <li class="list-group-item  border-0">
+            <li class="list-group-item  border-0" *ngIf="isPresensi != 200">
               <i class="fas fa-sign-in-alt"></i> &nbsp;Waktu Masuk<br>
-              <span class="h5">{{jamMasuk}}</span>
+              <span class="h5">{{jamMasuk}}. Maksimal {{toleranMasuk}}</span>
             </li>
-            <li class="list-group-item  border-0">
+            <li class="list-group-item  border-0" *ngIf="sisaWaktu != '' && isPresensi != 200">
               <i class="fas fa-stopwatch"></i> &nbsp;Waktu Sisa<br>
-              <span class="h5">{{status}}</span>
+              <span class="h5">{{sisaWaktu}}</span>
+            </li>
+            <li class="list-group-item  border-0" *ngIf="sisaWaktu == '' && isPresensi != 200">
+              <i class="fas fa-stopwatch"></i> &nbsp;Waktu Sisa<br>
+              <span class="h5">{{status}} {{durasi_keterlambatan}}</span>
             </li>
             <li class="list-group-item  border-0">
               <i class="fas fa-map-marked-alt"></i> &nbsp;Jarak Dari Kantor<br>
               <span class="h5">{{jarak | number: "1.0-2"}} meter</span>
             </li>
           </ul>
-          <button *ngIf="isPresensi == 200" class="border-0 rounded-0  text-white"
-            [ngClass]="{'bg-primary': isPresensi == 200}" mat-raised-button>Lihat Rekap Hari Ini</button>
+          <a *ngIf="isPresensi == 200" class="border-0 rounded-0  text-white" href="javascript:void(0)" routerLink="/kehadiran"  [ngClass]="{'bg-primary': isPresensi == 200}" mat-raised-button>
+            Lihat Rekap Hari Ini
+          </a>
         </mat-card-content>
       </mat-card>
     </div>
@@ -41,7 +46,7 @@
         </mat-card-header>
         <mat-card-content>
           <div class="table-responsive text-center">
-            <webcam [width]="480" [height]="320" class="img-fluid" [trigger]="triggerObservable"
+            <webcam  [width]="480" [height]="320" class="img-fluid" [trigger]="triggerObservable"
               (imageCapture)="handleImage($event)" *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch"
               [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" [imageQuality]="0.5"
               (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>

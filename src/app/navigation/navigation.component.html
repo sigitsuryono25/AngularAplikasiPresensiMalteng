@@ -38,7 +38,7 @@
           <div id="table--accordion-collapse" class="accordion-collapse collapse" aria-labelledby="headingOne"
             data-bs-parent="#table--accordion">
             <div>
-              <a mat-list-item href="javascript:void(0)" routerLink="input-kas-admin" aria-expanded="false">
+              <a mat-list-item href="javascript:void(0)" routerLink="kehadiran" aria-expanded="false" (click)="changeTitle('Tabel Kehadiran', drawer);">
                 &nbsp;&nbsp;<mat-icon>bar_chart</mat-icon>&nbsp;&nbsp;
                 <span class="">Tabel Kehadiran </span>
               </a>
@@ -79,10 +79,17 @@
           </div>
         </div>
       </div>
-
+      <a mat-list-item href="javascript:void(0)" onclick="alert('Pengajuan Izin Melalui Aplikasi Klik Open')">
+        <mat-icon>sticky_note_2</mat-icon>&nbsp;&nbsp;
+        Pengajuan Izin
+      </a>
       <a mat-list-item routerLink="profile" (click)="changeTitle('Profil', drawer);">
         <mat-icon>people_alt</mat-icon>&nbsp;&nbsp;
         Profil
+      </a>
+      <a mat-list-item href="https://e-ukpbj.server4111.com/">
+        <mat-icon>arrow_back_ios</mat-icon>&nbsp;&nbsp;
+        <small>Kembali<br>ke Klik Open</small>
       </a>
     </mat-nav-list>
   </mat-sidenav>

@@ -33,6 +33,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { LoginComponent } from './login/login.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +77,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSortModule,
     MatInputModule,
     MatSelectModule,
+    MatProgressSpinnerModule
     // NgxFaceApiJsModule.forRoot({
     //   modelsUrl: 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights',
     // })

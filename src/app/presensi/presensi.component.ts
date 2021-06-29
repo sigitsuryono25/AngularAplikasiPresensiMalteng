@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { GeolocationService } from '@ng-web-apis/geolocation';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
@@ -13,14 +14,14 @@ declare var $: any;
 })
 export class PresensiComponent implements OnInit {
 
-  showWebcam = true;
+  showWebcam = false;
   allowCameraSwitch = true;
   multipleWebcamAvailable = false;
   deviceId: String = "";
   videoOptions: MediaTrackConstraints = {};
   isWFH = false;
   errors: WebcamInitError[] = [];
-  webcamImage: any;
+  webcamImage?: WebcamImage;
   private trigger: Subject<void> = new Subject<void>();
   private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
   jarak: any;
@@ -32,9 +33,17 @@ export class PresensiComponent implements OnInit {
   position: any;
   isPresensi = -1;
   toggleWebcamText: any = "Non Aktfikan Kamera";
+  sisaWaktu: any;
+  durasi: any;
+  toleranMasuk: any;
+  durasi_keterlambatan: any = 0;
+  durasi_terlambat: any = 0;
   private declare urls;
 
-  constructor(private readonly geolocation$: GeolocationService, private service: NetworkService) {
+  constructor(private readonly geolocation$: GeolocationService,
+    private service: NetworkService,
+    private routes: Router
+  ) {
     funcs.showLoadingData();
     this.urls = environment.baseUrlDebug + "presensi";
     this.getPositionNow();
@@ -75,7 +84,9 @@ export class PresensiComponent implements OnInit {
         res => {
           this.isPresensi = res.data.is_presensi;
           if (this.isPresensi == 200) {
-            alert(res.message)
+            alert(res.message);
+            // this.showWebcam = false;
+            this.routes.navigateByUrl("/kehadiran");
           }
         },
         err => console.error(err)
@@ -86,10 +97,11 @@ export class PresensiComponent implements OnInit {
   sendData() {
     funcs.showLoadingData();
     const data = {
-      foto: this.webcamImage.imageAsDataUrl,
+      foto: this.webcamImage?.imageAsDataUrl,
       nip: "1606022502940003",
       latitude: this.position.coords.latitude,
       longitude: this.position.coords.longitude,
+      keterlambatan: this.durasi_terlambat
     };
     const url = environment.baseUrlDebug + "do-presensi";
     this.service.sendData(url, data)
@@ -121,6 +133,11 @@ export class PresensiComponent implements OnInit {
             $this.serverTime = res.waktu;
             $this.jamMasuk = res.jam_kerja.jam_masuk;
             $this.status = res.jam_kerja.status;
+            $this.sisaWaktu = res.jam_kerja.sisa_waktu_presensi;
+            $this.durasi = res.jam_kerja.durasi;
+            $this.toleranMasuk = res.jam_kerja.toleransi_keterlambatan_masuk;
+            $this.durasi_keterlambatan = res.jam_kerja.durasi_keterlambatan;
+            $this.durasi_terlambat = res.jam_kerja.durasi_terlambat;
           },
           error => {
             console.error(error);
