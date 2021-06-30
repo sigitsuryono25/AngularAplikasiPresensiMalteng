@@ -21,15 +21,19 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="dataRekapHariIni != '' || dataRekapHariIni != null">
             <tr>
-              <td>{{dataRekapHariIni.hari}}</td>
               <td>{{dataRekapHariIni.tanggal}}</td>
+              <td>{{dataRekapHariIni.hari}}</td>
               <td>{{dataRekapHariIni.jam_masuk}}</td>
               <td>{{dataRekapHariIni.terlambat}}</td>
-              <td>{{dataRekapHariIni.foto_masuk}}</td>
+              <td>
+                <img src="{{dataRekapHariIni.foto_masuk}}" alt="" width="100">
+              </td>
               <td>{{dataRekapHariIni.jam_pulang}}</td>
-              <td>{{dataRekapHariIni.foto_pulang}}</td>
+              <td>
+                <img src="{{dataRekapHariIni.foto_pulang}}" alt="" width="100">
+              </td>
               <td>{{dataRekapHariIni.status}}</td>
             </tr>
           </tbody>
@@ -79,7 +83,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="fotoMasuk">
             <th mat-header-cell *matHeaderCellDef>Foto Masuk</th>
-            <td mat-cell *matCellDef="let row">{{row.fotoMasuk}}</td>
+            <td mat-cell *matCellDef="let row"><img src="{{row.fotoMasuk}}" alt="" width="100"></td>
           </ng-container>
           <!-- Name Column -->
           <ng-container matColumnDef="jamPulang">
@@ -89,7 +93,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="fotoPulang">
             <th mat-header-cell *matHeaderCellDef>Foto Pulang</th>
-            <td mat-cell *matCellDef="let row">{{row.fotoPulang}}</td>
+            <td mat-cell *matCellDef="let row" class="p-2"><img src="{{row.fotoPulang}}" alt="" width="100"></td>
           </ng-container>
           <!-- Name Column -->
           <ng-container matColumnDef="status">

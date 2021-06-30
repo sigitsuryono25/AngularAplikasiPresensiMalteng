@@ -19,7 +19,7 @@ export class KehadiranComponent implements AfterViewInit {
   dataSources: PresensiDataSource;
 
   displayedColumns = ['seq', 'tanggal', 'hari', 'jam_masuk', 'terlambat', 'fotoMasuk', 'jamPulang', 'fotoPulang', 'status'];
-  dataRekapHariIni: any;
+  dataRekapHariIni: any = [];
 
   constructor(private service: NetworkService) {
     this.dataSources = new PresensiDataSource(this.service)

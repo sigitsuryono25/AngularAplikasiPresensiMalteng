@@ -12,7 +12,7 @@ declare var $: any;
   templateUrl: './presensi.component.html',
   styleUrls: ['./presensi.component.css']
 })
-export class PresensiComponent implements OnInit {
+export class PresensiComponent implements OnInit, OnDestroy {
 
   showWebcam = false;
   allowCameraSwitch = true;
@@ -39,6 +39,7 @@ export class PresensiComponent implements OnInit {
   durasi_keterlambatan: any = 0;
   durasi_terlambat: any = 0;
   private declare urls;
+  myInterval : any;
 
   constructor(private readonly geolocation$: GeolocationService,
     private service: NetworkService,
@@ -49,6 +50,9 @@ export class PresensiComponent implements OnInit {
     this.getPositionNow();
     this.presensiHariIni();
     this.getServerTime();
+  }
+  ngOnDestroy(): void {
+    clearInterval(this.myInterval);
   }
 
 
@@ -125,7 +129,7 @@ export class PresensiComponent implements OnInit {
 
   getServerTime() {
     var $this = this;
-    setInterval(function () {
+    this.myInterval = setInterval(function () {
       const url = environment.baseUrlDebug + "server-time";
       $this.service.getData(url)
         .subscribe(
