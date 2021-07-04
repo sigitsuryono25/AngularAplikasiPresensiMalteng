@@ -32,10 +32,11 @@
             </li>
             <li class="list-group-item  border-0">
               <i class="fas fa-map-marked-alt"></i> &nbsp;Jarak Dari Kantor<br>
-              <span class="h5">{{jarak | number: "1.0-2"}} meter</span>
+              <span class="h5">{{jarakText }}</span>
             </li>
           </ul>
-          <a *ngIf="isPresensi == 200" class="border-0 rounded-0  text-white" href="javascript:void(0)" routerLink="/kehadiran"  [ngClass]="{'bg-primary': isPresensi == 200}" mat-raised-button>
+          <a *ngIf="isPresensi == 200" class="border-0 rounded-0  text-white" href="javascript:void(0)"
+            routerLink="/kehadiran" [ngClass]="{'bg-primary': isPresensi == 200}" mat-raised-button>
             Lihat Rekap Hari Ini
           </a>
         </mat-card-content>
@@ -50,14 +51,18 @@
         </mat-card-header>
         <mat-card-content>
           <div class="table-responsive text-center">
-            <webcam  [width]="480" [height]="320" class="img-fluid" [trigger]="triggerObservable"
+            <webcam [width]="480" [height]="320" class="img-fluid" [trigger]="triggerObservable"
               (imageCapture)="handleImage($event)" *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch"
               [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" [imageQuality]="0.5"
               (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>
             <div class="d-block text-center">
-              <button [disabled]="!canPresensi || !showWebcam"  *ngIf="isPresensi != 200" [ngClass]="{'bg-success' : canPresensi}"
+              <!-- <button [disabled]="!canPresensi || !showWebcam"  *ngIf="isPresensi != 200" [ngClass]="{'bg-success' : canPresensi}"
                 mat-raised-button (click)="triggerSnapshot();" class="border-0 rounded-0  text-white">
                 <mat-icon>photo_camera</mat-icon>&nbsp;
+                Presensi
+              </button>&nbsp;&nbsp;&nbsp; -->
+              <button mat-raised-button (click)="triggerSnapshot();" class="border-0 rounded-0 bg-success text-white">
+                <mat-icon>photo_camera</mat-icon>
                 Presensi
               </button>&nbsp;&nbsp;&nbsp;
               <button mat-raised-button color="warn" (click)="toggleWebcam();" class="border-0 rounded-0">
@@ -74,22 +79,35 @@
 
 <!-- Modal -->
 <div class="modal fade" id="hasilFoto" role="dialog" aria-labelledby="hasilFoto" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Hasil Foto</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title">Presensi Pulang</h5>
+        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="text-center" *ngIf="webcamImage">
-          <img singleFace [src]="webcamImage.imageAsDataUrl" class="img-fluid" />
+          <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-4 text-center">
+              <img singleFace [src]="webcamImage.imageAsDataUrl" class="img-fluid" />
+              <span>Hasil Foto</span>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group p-2">
+                <label class="font-weight-bold">Tulis Kegiatan Hari ini</label>
+                <div [froalaEditor] [(froalaModel)]="editorContent"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button mat-raised-button color="primary" (click)="sendData()" class="bg-primary border-0 rounded-0 text-white">
+          <mat-icon>save</mat-icon>&nbsp;
+          Kirim kegiatan dan Presensi Pulang
+        </button>
       </div>
     </div>
   </div>

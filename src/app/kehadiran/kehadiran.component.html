@@ -83,7 +83,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="fotoMasuk">
             <th mat-header-cell *matHeaderCellDef>Foto Masuk</th>
-            <td mat-cell *matCellDef="let row"><img src="{{row.fotoMasuk}}" alt="" width="100"></td>
+            <td mat-cell *matCellDef="let row"><img src="{{row.fotoMasuk}}" (click)="lihatGambar(row.fotoMasuk)" alt="" width="100"></td>
           </ng-container>
           <!-- Name Column -->
           <ng-container matColumnDef="jamPulang">
@@ -93,7 +93,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="fotoPulang">
             <th mat-header-cell *matHeaderCellDef>Foto Pulang</th>
-            <td mat-cell *matCellDef="let row" class="p-2"><img src="{{row.fotoPulang}}" alt="" width="100"></td>
+            <td mat-cell *matCellDef="let row" class="p-2"><img src="{{row.fotoPulang}}" (click)="lihatGambar(row.fotoPulang)" alt="" width="100"></td>
           </ng-container>
           <!-- Name Column -->
           <ng-container matColumnDef="status">
@@ -110,4 +110,24 @@
       </div>
     </mat-card-content>
   </mat-card>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="lihatFoto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Lihat Foto</h5>
+          <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <img src="{{gambarFoto}}" alt="" class="img-fluid">
+      </div>
+      <div class="modal-footer d-flex justify-content-center align-items-center">
+        <small>Klik diluar kotak untuk menutup kotak dialog</small>
+      </div>
+    </div>
+  </div>
 </div>

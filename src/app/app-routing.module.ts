@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardGuard } from './auth-guard.guard';
 import { CekJadwalComponent } from './cek-jadwal/cek-jadwal.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { KegiatanHarianComponent } from './kegiatan/kegiatan-harian.component';
 import { KehadiranComponent } from './kehadiran/kehadiran.component';
 import { LoginComponent } from './login/login.component';
 import { PresensiComponent } from './presensi/presensi.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "presensi", component: PresensiComponent, canActivate: [AuthGuardGuard] },
   { path: "login", component: LoginComponent },
   { path: "cek-jadwal", component: CekJadwalComponent },
+  { path: "kegiatan-harian", component: KegiatanHarianComponent },
 ];
 
 @NgModule({

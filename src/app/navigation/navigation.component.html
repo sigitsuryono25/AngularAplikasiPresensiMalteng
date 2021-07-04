@@ -39,11 +39,11 @@
               <a mat-list-item href="javascript:void(0)" routerLink="kehadiran" aria-expanded="false"
                 (click)="changeTitle('Tabel Kehadiran', drawer);">
                 &nbsp;&nbsp;<mat-icon>bar_chart</mat-icon>&nbsp;&nbsp;
-                <span class="">Tabel Kehadiran </span>
+                <span class="">Kehadiran </span>
               </a>
-              <a mat-list-item href="javascript:void(0)" routerLink="input-kas-admin" aria-expanded="false">
+              <a mat-list-item href="javascript:void(0)" routerLink="/kegiatan-harian" aria-expanded="false" (click)="changeTitle('Tabel Kegiatan', drawer);">
                 &nbsp;&nbsp;<mat-icon>checklist</mat-icon>&nbsp;&nbsp;
-                <span class="hide-menu">Tabel Kegiatan </span>
+                <span class="hide-menu">Kegiatan </span>
               </a>
             </div>
           </div>
@@ -69,11 +69,11 @@
                 &nbsp;&nbsp;<mat-icon>warning</mat-icon>&nbsp;&nbsp;
                 <span class="">Presensi </span>
               </a>
-              <a mat-list-item href="javascript:void(0)" (click)="changeTitle('Kegiatan', drawer);"
+              <!-- <a mat-list-item href="javascript:void(0)" (click)="changeTitle('Kegiatan', drawer);"
                 routerLink="input-kas-admin" aria-expanded="false">
                 &nbsp;&nbsp;<mat-icon>draw</mat-icon>&nbsp;&nbsp;
                 <span class="hide-menu">Kegiatan </span>
-              </a>
+              </a> -->
             </div>
           </div>
         </div>

@@ -36,6 +36,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CekJadwalComponent } from './cek-jadwal/cek-jadwal.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { KegiatanHarianComponent } from './kegiatan/kegiatan-harian.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ProfileComponent,
     PresensiComponent,
     LoginComponent,
-    CekJadwalComponent
+    CekJadwalComponent,
+    KegiatanHarianComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatSortModule,
     MatInputModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
     // NgxFaceApiJsModule.forRoot({
     //   modelsUrl: 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights',
     // })

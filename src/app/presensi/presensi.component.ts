@@ -30,10 +30,11 @@ export class PresensiComponent implements OnInit, OnDestroy {
   serverTime: any;
   jamMasuk: any;
   status: any;
+  jarakText = "-m";
   canPresensi = false;
   position: any;
   isPresensi = -1;
-  toggleWebcamText: any = "Non Aktfikan Kamera";
+  toggleWebcamText: any = "Aktifkan Kamera";
   sisaWaktu: any;
   durasi: any;
   toleranMasuk: any;
@@ -44,6 +45,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
   nip: any;
   isPresensiMasuk = false;
   jamPresensiMasuk: any;
+  editorContent: any;
 
   constructor(private readonly geolocation$: GeolocationService,
     private service: NetworkService,
@@ -74,6 +76,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
         this.service.sendData(this.urls, data).subscribe(
           res => {
             this.jarak = res.data.radius;
+            this.jarakText = res.data.radius_text;
             this.canPresensi = res.data.can_presensi;
 
           },
@@ -96,7 +99,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
             alert(res.message);
             // this.showWebcam = false;
             this.routes.navigateByUrl("/kehadiran");
-          }else if(this.isPresensi == 400){
+          } else if (this.isPresensi == 400) {
             this.isPresensiMasuk = true;
             this.jamPresensiMasuk = res.data.masuk;
           }
@@ -107,13 +110,21 @@ export class PresensiComponent implements OnInit, OnDestroy {
   }
 
   sendData() {
+    var editor = this.editorContent;
+    if (this.isPresensiMasuk) {
+      if (editor == "" || editor == null || typeof (editor) == "undefined") {
+        alert("Kegiatan harian harus diisi");
+        return;
+      }
+    }
     funcs.showLoadingData();
     const data = {
       foto: this.webcamImage?.imageAsDataUrl,
       nip: this.nip,
       latitude: this.position.coords.latitude,
       longitude: this.position.coords.longitude,
-      keterlambatan: this.durasi_terlambat
+      keterlambatan: this.durasi_terlambat,
+      progress_harian: this.editorContent
     };
     const url = environment.baseUrlDebug + "do-presensi";
     this.service.sendData(url, data)
@@ -122,6 +133,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
           funcs.hideLoadingData();
           if (res.code == 200) {
             alert(res.message)
+            location.reload();
           } else {
             alert(res.message)
           }
@@ -171,11 +183,14 @@ export class PresensiComponent implements OnInit, OnDestroy {
       return;
     }
     this.trigger.next();
-    // $("#hasilFoto").appendTo("body").modal({
-    //   backdrop: 'static',
-    //   keyboard: false
-    // });
-    this.sendData();
+    if (this.isPresensiMasuk) {
+      $("#hasilFoto").appendTo("body").modal({
+        backdrop: 'static',
+        keyboard: false
+      });
+    } else {
+      this.sendData();
+    }
   }
 
   public handleImage(webcamImage: WebcamImage): void {

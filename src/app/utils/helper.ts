@@ -4,7 +4,7 @@ const funcs = {
     return number * Math.PI / 180
   },
   haversineFormula(lat1: any, lon1: any, lat2: any, lon2: any) {
-    var R = 6371000;
+    var R = 6371;
     var x1 = lat2 - lat1;
     var dLat = this.toRad(x1);
     var x2 = lon2 - lon1;
@@ -14,6 +14,9 @@ const funcs = {
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
+    // if (d < 1000) {
+    //   d *= 1000;
+    // }
     return d;
   },
   sendLoading(element: string = "body", message: string = "Mengirimkan Data..") {
@@ -51,6 +54,22 @@ const funcs = {
       if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
+  },
+  startTimer(duration: any, display: any) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+      minutes = timer / 60
+      seconds = timer % 60;
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = minutes + ":" + seconds;
+
+      if (--timer < 0) {
+        timer = duration;
+      }
+    }, 1000);
   },
   splitTanggal(tanggal: string, splitter: any = "/", newSplitter: any = "-"): string {
     let s = tanggal.split(splitter);

@@ -9,6 +9,7 @@ import { COOKIE_NAME_NIP } from '../utils/constants';
 import funcs from '../utils/helper';
 import { PresensiDataSource, RekapItem } from './kehadiran-source';
 
+declare var $: any;
 @Component({
   selector: 'app-kehadiran',
   templateUrl: './kehadiran.component.html',
@@ -23,6 +24,7 @@ export class KehadiranComponent implements AfterViewInit {
   displayedColumns = ['seq', 'tanggal', 'hari', 'jam_masuk', 'terlambat', 'fotoMasuk', 'jamPulang', 'fotoPulang', 'status'];
   dataRekapHariIni: any = [];
   nip: any;
+  gambarFoto: any;
 
   constructor(private service: NetworkService) {
     this.nip = funcs.getCookie(COOKIE_NAME_NIP);
@@ -33,6 +35,11 @@ export class KehadiranComponent implements AfterViewInit {
 
   ngOnInit(): void {
 
+  }
+
+  lihatGambar(src: any) {
+    this.gambarFoto = src;
+    $("#lihatFoto").appendTo("body").modal('show');
   }
 
   ngAfterViewInit(): void {

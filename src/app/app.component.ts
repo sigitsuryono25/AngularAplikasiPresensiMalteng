@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { COOKIE_NAME_NIP } from './utils/constants';
 import funcs from './utils/helper';
 
@@ -17,6 +18,7 @@ export class AppComponent {
     if (nip == '' || nip == null || typeof (nip) == "undefined") {
       // location.reload();
       this.isLoggedIn = false;
+      //location.assign(environment.klikOpen);
     } else {
       this.isLoggedIn = true;
     }
