@@ -1,21 +1,21 @@
-<div class="container">
+<div class="container" >
   <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-md-4">
         <mat-card class="shipping-card p-4">
           <mat-card-header>
-            <mat-card-title>Shipping Information</mat-card-title>
+            <mat-card-title>Login Portal</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <mat-form-field class="full-width">
-              <input matInput placeholder="NIP" formControlName="firstName">
-              <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
+              <input matInput placeholder="NIP" formControlName="nip">
+              <mat-error *ngIf="addressForm.controls['nip'].hasError('required')">
                 First name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
-              <input matInput placeholder="Password" formControlName="lastName">
-              <mat-error *ngIf="addressForm.controls['lastName'].hasError('required')">
+              <input matInput placeholder="Password" type="password" formControlName="password">
+              <mat-error *ngIf="addressForm.controls['password'].hasError('required')">
                 Last name is <strong>required</strong>
               </mat-error>
             </mat-form-field>

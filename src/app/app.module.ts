@@ -34,6 +34,8 @@ import { LoginComponent } from './login/login.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { CekJadwalComponent } from './cek-jadwal/cek-jadwal.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     KehadiranComponent,
     ProfileComponent,
     PresensiComponent,
-    LoginComponent
+    LoginComponent,
+    CekJadwalComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     //   modelsUrl: 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights',
     // })
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

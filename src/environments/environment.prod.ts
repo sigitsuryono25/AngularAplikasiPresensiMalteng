@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl : ""
+  baseUrlDebug : "https://presensi-klikopen.server4111.com/"
 };

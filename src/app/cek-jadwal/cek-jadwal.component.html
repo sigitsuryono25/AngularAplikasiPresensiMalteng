@@ -1,0 +1,37 @@
+<div class="container p-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <p>Jadwal Anda</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+          <thead>
+            <tr>
+              <th>Senin</th>
+              <th>Selasa</th>
+              <th>Rabu</th>
+              <th>Kamis</th>
+              <th>Jumat</th>
+              <th>Sabtu</th>
+              <th>Minggu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{dataJadwal.senin}}</td>
+              <td>{{dataJadwal.selasa}}</td>
+              <td>{{dataJadwal.rabu}}</td>
+              <td>{{dataJadwal.kamis}}</td>
+              <td>{{dataJadwal.jumat}}</td>
+              <td>{{dataJadwal.sabtu}}</td>
+              <td>{{dataJadwal.minggu}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

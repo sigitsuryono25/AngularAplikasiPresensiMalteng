@@ -42,9 +42,9 @@ export class PresensiDataSource implements DataSource<RekapItem>{
     this.loadingSubject.complete();
   }
 
-  loadPresensi(pageIndex: number, pageSize: number) {
+  loadPresensi(pageIndex: number, pageSize: number, nip: any) {
     this.loadingSubject.next(true);
-    const urlPage = environment.baseUrlDebug + `rekap-kehadiran?nip=1606022502940003&page=${pageIndex}&length=${pageSize}`;
+    const urlPage = environment.baseUrlDebug + `rekap-kehadiran?nip=${nip}&page=${pageIndex}&length=${pageSize}`;
     this.service.getData(urlPage)
       .pipe(
         catchError(() => of([])),

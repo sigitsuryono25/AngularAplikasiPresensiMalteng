@@ -5,6 +5,8 @@ import { MatTable } from '@angular/material/table';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NetworkService } from '../network/network.service';
+import { COOKIE_NAME_NIP } from '../utils/constants';
+import funcs from '../utils/helper';
 import { PresensiDataSource, RekapItem } from './kehadiran-source';
 
 @Component({
@@ -20,10 +22,12 @@ export class KehadiranComponent implements AfterViewInit {
 
   displayedColumns = ['seq', 'tanggal', 'hari', 'jam_masuk', 'terlambat', 'fotoMasuk', 'jamPulang', 'fotoPulang', 'status'];
   dataRekapHariIni: any = [];
+  nip: any;
 
   constructor(private service: NetworkService) {
+    this.nip = funcs.getCookie(COOKIE_NAME_NIP);
     this.dataSources = new PresensiDataSource(this.service)
-    this.dataSources.loadPresensi(0, 10);
+    this.dataSources.loadPresensi(0, 10, this.nip);
     this.rekapHariIni();
   }
 
@@ -38,19 +42,19 @@ export class KehadiranComponent implements AfterViewInit {
   }
 
   loadMore() {
-    this.dataSources.loadPresensi(this.paginator.pageIndex, 10);
+    this.dataSources.loadPresensi(this.paginator.pageIndex, 10, this.nip);
   }
 
-  rekapHariIni(){
-    const urlHariIni = environment.baseUrlDebug + "rekap-hari-ini?nip=1606022502940003";
+  rekapHariIni() {
+    const urlHariIni = environment.baseUrlDebug + "rekap-hari-ini?nip=" + this.nip;
     this.service.getData(urlHariIni)
-    .subscribe(
-      res=>{
-        this.dataRekapHariIni = res.data;
-      },
-      err=>{
-        console.error(err);
-      }
-    )
+      .subscribe(
+        res => {
+          this.dataRekapHariIni = res.data;
+        },
+        err => {
+          console.error(err);
+        }
+      )
   }
 }

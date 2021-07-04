@@ -7,18 +7,16 @@
           <i class="fas fa-user-circle fa-3x"></i>
         </div>
         <div class="col-md-12 text-center">
-          <label for="" class="d-block">Sigit Suryono</label>
-          <small for="" class="d-block small">Akun Demo</small>
+          <label for="">{{nama}}<br><span style="font-size: 9px;">{{jabatan}}</span></label>
         </div>
       </div>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="javascript:void(0)" routerLink="dashboard"
-        (click)="changeTitle('Dashboard', drawer); ">
+      <a mat-list-item href="javascript:void(0)" routerLink="dashboard" (click)="changeTitle('Dashboard', drawer); ">
         <mat-icon>dashboard</mat-icon>&nbsp;&nbsp;
         Dashboard
       </a>
-      <a mat-list-item href="#">
+      <a mat-list-item href="javascript:void(0)" routerLink="/cek-jadwal" (click)="changeTitle('Cek Jadwal', drawer);">
         <mat-icon>watch_later</mat-icon>&nbsp;&nbsp;
         Cek Jadwal
       </a>
@@ -38,7 +36,8 @@
           <div id="table--accordion-collapse" class="accordion-collapse collapse" aria-labelledby="headingOne"
             data-bs-parent="#table--accordion">
             <div>
-              <a mat-list-item href="javascript:void(0)" routerLink="kehadiran" aria-expanded="false" (click)="changeTitle('Tabel Kehadiran', drawer);">
+              <a mat-list-item href="javascript:void(0)" routerLink="kehadiran" aria-expanded="false"
+                (click)="changeTitle('Tabel Kehadiran', drawer);">
                 &nbsp;&nbsp;<mat-icon>bar_chart</mat-icon>&nbsp;&nbsp;
                 <span class="">Tabel Kehadiran </span>
               </a>

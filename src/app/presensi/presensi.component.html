@@ -14,17 +14,21 @@
               <i class="fas fa-clock "></i>&nbsp; Waktu Sekarang<br>
               <span class="h5">{{serverTime}}</span>
             </li>
-            <li class="list-group-item  border-0" *ngIf="isPresensi != 200">
+            <li class="list-group-item  border-0" *ngIf="isPresensi != 200 && !isPresensiMasuk">
               <i class="fas fa-sign-in-alt"></i> &nbsp;Waktu Masuk<br>
               <span class="h5">{{jamMasuk}}. Maksimal {{toleranMasuk}}</span>
             </li>
-            <li class="list-group-item  border-0" *ngIf="sisaWaktu != '' && isPresensi != 200">
+            <li class="list-group-item  border-0" *ngIf="sisaWaktu != '' && isPresensi != 200 && !isPresensiMasuk">
               <i class="fas fa-stopwatch"></i> &nbsp;Waktu Sisa<br>
               <span class="h5">{{sisaWaktu}}</span>
             </li>
-            <li class="list-group-item  border-0" *ngIf="sisaWaktu == '' && isPresensi != 200">
+            <li class="list-group-item  border-0" *ngIf="sisaWaktu == '' && isPresensi != 200 && !isPresensiMasuk">
               <i class="fas fa-stopwatch"></i> &nbsp;Waktu Sisa<br>
               <span class="h5">{{status}} {{durasi_keterlambatan}}</span>
+            </li>
+            <li class="list-group-item  border-0" *ngIf="isPresensiMasuk">
+              <i class="fas fa-sign-in-alt    "></i> &nbsp;Presensi Masuk<br>
+              <span class="h5">{{jamPresensiMasuk}}</span>
             </li>
             <li class="list-group-item  border-0">
               <i class="fas fa-map-marked-alt"></i> &nbsp;Jarak Dari Kantor<br>
@@ -51,7 +55,7 @@
               [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" [imageQuality]="0.5"
               (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>
             <div class="d-block text-center">
-              <button [disabled]="!canPresensi" *ngIf="isPresensi != 200" [ngClass]="{'bg-success' : canPresensi}"
+              <button [disabled]="!canPresensi || !showWebcam"  *ngIf="isPresensi != 200" [ngClass]="{'bg-success' : canPresensi}"
                 mat-raised-button (click)="triggerSnapshot();" class="border-0 rounded-0  text-white">
                 <mat-icon>photo_camera</mat-icon>&nbsp;
                 Presensi

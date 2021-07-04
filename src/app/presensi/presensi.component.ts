@@ -5,6 +5,7 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { NetworkService } from '../network/network.service';
+import { COOKIE_NAME_NIP } from '../utils/constants';
 import funcs from '../utils/helper';
 declare var $: any;
 @Component({
@@ -39,13 +40,17 @@ export class PresensiComponent implements OnInit, OnDestroy {
   durasi_keterlambatan: any = 0;
   durasi_terlambat: any = 0;
   private declare urls;
-  myInterval : any;
+  myInterval: any;
+  nip: any;
+  isPresensiMasuk = false;
+  jamPresensiMasuk: any;
 
   constructor(private readonly geolocation$: GeolocationService,
     private service: NetworkService,
     private routes: Router
   ) {
     funcs.showLoadingData();
+    this.nip = funcs.getCookie(COOKIE_NAME_NIP);
     this.urls = environment.baseUrlDebug + "presensi";
     this.getPositionNow();
     this.presensiHariIni();
@@ -64,7 +69,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
         var data = {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
-          nip: "1606022502940003"
+          nip: this.nip
         };
         this.service.sendData(this.urls, data).subscribe(
           res => {
@@ -82,7 +87,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
   }
 
   presensiHariIni() {
-    const urlHariIni = environment.baseUrlDebug + "presensi-hari-ini?nip=1606022502940003";
+    const urlHariIni = environment.baseUrlDebug + "presensi-hari-ini?nip=" + this.nip;
     this.service.getData(urlHariIni)
       .subscribe(
         res => {
@@ -91,6 +96,9 @@ export class PresensiComponent implements OnInit, OnDestroy {
             alert(res.message);
             // this.showWebcam = false;
             this.routes.navigateByUrl("/kehadiran");
+          }else if(this.isPresensi == 400){
+            this.isPresensiMasuk = true;
+            this.jamPresensiMasuk = res.data.masuk;
           }
         },
         err => console.error(err)
@@ -102,7 +110,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
     funcs.showLoadingData();
     const data = {
       foto: this.webcamImage?.imageAsDataUrl,
-      nip: "1606022502940003",
+      nip: this.nip,
       latitude: this.position.coords.latitude,
       longitude: this.position.coords.longitude,
       keterlambatan: this.durasi_terlambat
@@ -158,6 +166,10 @@ export class PresensiComponent implements OnInit, OnDestroy {
   }
 
   triggerSnapshot(): void {
+    if (!this.showWebcam) {
+      alert("Aktifkan Webcam terlebih dahulu");
+      return;
+    }
     this.trigger.next();
     // $("#hasilFoto").appendTo("body").modal({
     //   backdrop: 'static',
