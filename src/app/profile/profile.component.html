@@ -34,4 +34,83 @@
     </mat-card-content>
   </mat-card>
 
+  <mat-card class="mt-4">
+    <div class="alert alert-danger text-center">
+      <span class="text-danger h6">Foto hanya 1 kali.
+        <br>Tidak bisa di ubah kembali. Pastikan ekspresi dan muka anda
+        terlihat jelas.<br>
+        Untuk ubah foto, silahkan hubungi admin
+      </span>
+    </div>
+    <mat-card-header>
+      <mat-card-title>Wajah Anda</mat-card-title>
+      <mat-card-subtitle>Daftar Wajah Anda.<br><small><strong>Tambah hingga 4 wajah anda untuk mendeteksi bahwa itu
+            benar anda.</strong></small></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row" *ngIf="!hasWajah">
+        <div class="col-md-3">
+          <img class="img-fluid wajah-anda" id="img-1" (click)="getImage('img-1')"
+            src="assets/img/placeholder-image.png" />
+        </div>
+        <div class="col-md-3">
+          <img class="img-fluid wajah-anda" id="img-2" (click)="getImage('img-2')"
+            src="assets/img/placeholder-image.png" />
+        </div>
+        <div class="col-md-3">
+          <img class="img-fluid wajah-anda" id="img-3" (click)="getImage('img-3')"
+            src="assets/img/placeholder-image.png" />
+        </div>
+        <div class="col-md-3">
+          <img class="img-fluid wajah-anda" id="img-4" (click)="getImage('img-4')"
+            src="assets/img/placeholder-image.png" />
+        </div>
+      </div>
+      <div class="row" *ngIf="hasWajah">
+        <div class="col-md-3" *ngFor="let dw of dataWajah">
+          <img class="img-fluid zoom img-thumbnail" src="{{path}}{{dw}}" />
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button *ngIf="!hasWajah" class="bg-success text-white" (click)="simpanWajah()">Simpan
+        Wajah</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Ambil Foto Wajah</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <div class="d-flex justify-content-center align-items-center">
+            <webcam [width]="480" [height]="320" class="img-fluid" [trigger]="triggerObservable"
+              (imageCapture)="handleImage($event)" *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch"
+              [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" [imageQuality]="0.5"
+              (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>
+          </div>
+          <div class="shutter d-flex justify-content-center align-items-center">
+            <button mat-raised-button (click)="triggerSnapshot();" class="border-0 rounded-0 bg-success text-white">
+              <mat-icon>photo_camera</mat-icon>
+              Ambil Foto
+            </button>&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)="toggleWebcam();" class="border-0 rounded-0">
+              <mat-icon>sync</mat-icon>&nbsp;
+              {{toggleWebcamText}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
 </div>

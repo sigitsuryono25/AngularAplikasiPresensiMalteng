@@ -27,7 +27,6 @@
     "ajv": "^6.9.1",
     "angular-froala-wysiwyg": "^4.0.2",
     "angular-summernote": "^0.8.1",
-    "face-api.js": "^0.22.2",
     "ng-material-multilevel-menu": "^5.5.3",
     "ngx-face-api-js": "^0.1.1",
     "ngx-webcam": "^0.3.2",

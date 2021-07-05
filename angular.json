@@ -43,7 +43,8 @@
               "src/assets/js/bootstrap.bundle.min.js",
               "src/assets/js/fontawesome_all.min.js",
               "src/assets/js/tf.min.js",
-              "src/assets/libs/jquery-loading/jquery.loading.min.js"
+              "src/assets/libs/jquery-loading/jquery.loading.min.js",
+              "src/assets/js/faceapi.js"
             ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
@@ -120,7 +121,8 @@
               "src/assets/js/jquery.min.js",
               "src/assets/js/bootstrap.bundle.min.js",
               "src/assets/js/fontawesome_all.min.js",
-              "src/assets/libs/jquery-loading/jquery.loading.min.js"
+              "src/assets/libs/jquery-loading/jquery.loading.min.js",
+              "src/assets/js/faceapi.js"
             ]
           }
         }
