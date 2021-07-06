@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { NetworkService } from '../network/network.service';
 import { COOKIE_NAME_NIP } from '../utils/constants';
+import detector from '../utils/faceDetector';
 import funcs from '../utils/helper';
 declare var $: any;
 @Component({
@@ -47,19 +48,64 @@ export class PresensiComponent implements OnInit, OnDestroy {
   jamPresensiMasuk: any;
   editorContent: any;
 
+  hasWajah: any;
   constructor(private readonly geolocation$: GeolocationService,
     private service: NetworkService,
     private routes: Router
   ) {
+    this.getWajah();
+  }
+  ngOnDestroy(): void {
+    clearInterval(this.myInterval);
+  }
+
+  verifyFace() {
+    funcs.showLoadingData("#hasilFoto", "MEMVERIFIKASI WAJAH ANDA");
+    detector.detectWajah("hasil-foto", [funcs.getCookie(COOKIE_NAME_NIP)])
+      .then(e => {
+        funcs.hideLoadingData("#hasilFoto");
+        // if(e != null || e != [] || e != ""){
+        //   alert(e?.nip);
+        // }
+        var nip = e?.nip;
+        if (typeof (nip) == "undefined") {
+          alert("Wajah Tidak Dikenali");
+        } else {
+          this.sendData();
+        }
+        // if (nip != "" || typeof (nip) != "undefined" || nip != null) {
+        //   this.sendData();
+        // }else{
+        //   alert("Wajah tidak dikenali");
+        // }
+      })
+  }
+
+  getWajah() {
+    const urlWajah = environment.baseUrlDebug + "get-wajah?nip=" + funcs.getCookie(COOKIE_NAME_NIP);
+    this.service.getData(urlWajah)
+      .subscribe(
+        res => {
+          if (res.code == 200) {
+            this.hasWajah = true;
+            this.initFun();
+          } else {
+            this.hasWajah = false;
+          }
+        },
+        err => {
+          console.error(err);
+        }
+      )
+  }
+
+  initFun() {
     funcs.showLoadingData();
     this.nip = funcs.getCookie(COOKIE_NAME_NIP);
     this.urls = environment.baseUrlDebug + "presensi";
     this.getPositionNow();
     this.presensiHariIni();
     this.getServerTime();
-  }
-  ngOnDestroy(): void {
-    clearInterval(this.myInterval);
   }
 
 
@@ -117,7 +163,7 @@ export class PresensiComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    funcs.showLoadingData();
+    funcs.showLoadingData("body", "MENGIRIMKAN DATA PRESENSI");
     const data = {
       foto: this.webcamImage?.imageAsDataUrl,
       nip: this.nip,
@@ -183,14 +229,15 @@ export class PresensiComponent implements OnInit, OnDestroy {
       return;
     }
     this.trigger.next();
-    if (this.isPresensiMasuk) {
-      $("#hasilFoto").appendTo("body").modal({
-        backdrop: 'static',
-        keyboard: false
-      });
-    } else {
-      this.sendData();
-    }
+    // if (this.isPresensiMasuk) {
+    // $("#hasilFoto").appendTo("body").modal({
+    //   backdrop: 'static',
+    //   keyboard: false
+    // });
+    $("#hasilFoto").appendTo("body").modal('show');
+    // } else {
+    //   this.sendData();
+    // }
   }
 
   public handleImage(webcamImage: WebcamImage): void {

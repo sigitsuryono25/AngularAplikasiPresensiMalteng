@@ -1,5 +1,12 @@
 <div class="container p-4">
-  <div class="row d-flex justify-content-center">
+  <div class="alert alert-warning" *ngIf="!hasWajah">
+    <span class="text-dark text-center d-block font-weight-bold">
+      <i class="fas fa-exclamation-triangle fa-2x"></i><br>
+      <strong>Anda belum menyimpan wajah untuk melakukan presensi. Atur wajah terlebih dahulu.</strong><br>
+      <a href="javascript:void(0)" routerLink="/profile" class="text-danger font-weight-bold"><strong>Klik disini</strong></a>
+    </span>
+  </div>
+  <div class="row d-flex justify-content-center" *ngIf="hasWajah">
     <div class="col-md-6 my-1">
       <mat-card>
         <mat-card-header class="d-flex justify-content-center">
@@ -90,11 +97,11 @@
       <div class="modal-body">
         <div class="text-center" *ngIf="webcamImage">
           <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-md-4 text-center">
-              <img singleFace [src]="webcamImage.imageAsDataUrl" class="img-fluid" />
+            <div class="col-md-6 text-center">
+              <img singleFace [src]="webcamImage.imageAsDataUrl" class="img-fluid" id="hasil-foto" />
               <span>Hasil Foto</span>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="isPresensiMasuk">
               <div class="form-group p-2">
                 <label class="font-weight-bold">Tulis Kegiatan Hari ini</label>
                 <div [froalaEditor] [(froalaModel)]="editorContent"></div>
@@ -104,7 +111,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button mat-raised-button color="primary" (click)="sendData()" class="bg-primary border-0 rounded-0 text-white">
+        <button mat-raised-button *ngIf="!isPresensiMasuk" color="primary" (click)="verifyFace()" class="bg-primary border-0 rounded-0 text-white">
+          <mat-icon>save</mat-icon>&nbsp;
+          Kirim foto dan Presensi Masuk
+        </button>
+        <button mat-raised-button *ngIf="isPresensiMasuk" color="primary" (click)="verifyFace()"
+          class="bg-primary border-0 rounded-0 text-white">
           <mat-icon>save</mat-icon>&nbsp;
           Kirim kegiatan dan Presensi Pulang
         </button>

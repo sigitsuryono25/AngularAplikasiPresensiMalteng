@@ -24,8 +24,10 @@ const funcs = {
       message: message,
     })
   },
-  showLoadingData(element: string = "body") {
-    $(element).loading();
+  showLoadingData(element: string = "body", message: string = "LOADING") {
+    $(element).loading({
+      message: message
+    });
   },
   hideLoadingData(element: string = "body") {
     $(element).loading("stop");
